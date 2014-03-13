@@ -60,6 +60,12 @@
   <ItemGroup>
     <Content Include="TestFiles\TsqlSample1.sql" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SqlCop.Rules\SqlCop.Rules.csproj">
+      <Project>{198b3ad0-ecee-46ad-bb42-aaf679c5cbff}</Project>
+      <Name>SqlCop.Rules</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
       <ItemGroup>

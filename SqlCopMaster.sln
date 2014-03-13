@@ -3,6 +3,10 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SqlCop.UnitTests", "SqlCop.UnitTests\SqlCop.UnitTests.csproj", "{57168EE7-B1E8-4C75-B152-074C6B5BEBD4}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SqlCop", "SqlCop\SqlCop.csproj", "{36FB76C7-8313-4778-B373-2D918671417A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SqlCop.Rules", "SqlCop.Rules\SqlCop.Rules.csproj", "{198B3AD0-ECEE-46AD-BB42-AAF679C5CBFF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -13,6 +17,14 @@ Global
 		{57168EE7-B1E8-4C75-B152-074C6B5BEBD4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{57168EE7-B1E8-4C75-B152-074C6B5BEBD4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{57168EE7-B1E8-4C75-B152-074C6B5BEBD4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{36FB76C7-8313-4778-B373-2D918671417A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{36FB76C7-8313-4778-B373-2D918671417A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{36FB76C7-8313-4778-B373-2D918671417A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{36FB76C7-8313-4778-B373-2D918671417A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{198B3AD0-ECEE-46AD-BB42-AAF679C5CBFF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{198B3AD0-ECEE-46AD-BB42-AAF679C5CBFF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{198B3AD0-ECEE-46AD-BB42-AAF679C5CBFF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{198B3AD0-ECEE-46AD-BB42-AAF679C5CBFF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
