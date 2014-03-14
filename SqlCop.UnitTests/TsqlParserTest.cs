@@ -27,8 +27,7 @@ namespace SqlCop.UnitTests
           {
             var querySpecification = selectStatement.QueryExpression as QuerySpecification;            
             foreach (TableSource tableSource in querySpecification.FromClauses)
-            {
-              tableSource.Accept(null);
+            {              
             }
           }
         }
