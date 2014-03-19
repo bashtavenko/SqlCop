@@ -10,7 +10,7 @@ using SqlCop.Rules;
 namespace SqlCop.UnitTests
 {
   [TestClass]
-  public class TsqlParserTest
+  public class TsqlParserTest : FileBasedTest
   {
     [TestMethod]
     public void SmokeTest()
@@ -53,11 +53,6 @@ namespace SqlCop.UnitTests
         script = parser.Parse(sr, out parseErrors) as TSqlScript;
       }
       return script;
-    }
-
-    private string GetFilePath(string fileName)
-    {
-      return Path.Combine("..\\..\\TestFiles", fileName).ToString();
     }
   }
 }

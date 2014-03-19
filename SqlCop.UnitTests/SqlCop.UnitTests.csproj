@@ -54,16 +54,27 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="FileBasedTest.cs" />
     <Compile Include="TsqlParserTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="EngineTest.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="TestFiles\TsqlSample2.sql" />
     <Content Include="TestFiles\TsqlSample1.sql" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\SqlCop.Common\SqlCop.Common.csproj">
+      <Project>{018c98cc-d80d-44e3-a668-3accda856eb5}</Project>
+      <Name>SqlCop.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\SqlCop.Rules\SqlCop.Rules.csproj">
       <Project>{198b3ad0-ecee-46ad-bb42-aaf679c5cbff}</Project>
       <Name>SqlCop.Rules</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SqlCop\SqlCop.csproj">
+      <Project>{36fb76c7-8313-4778-b373-2d918671417a}</Project>
+      <Name>SqlCop</Name>
     </ProjectReference>
   </ItemGroup>
   <Choose>

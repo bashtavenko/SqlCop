@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace SqlCop.Rules
 {
+  // TBD
   internal class Constants
   {
     public const string NameSpace = "SqlCop.Rules";

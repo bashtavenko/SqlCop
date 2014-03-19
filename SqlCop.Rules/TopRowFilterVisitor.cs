@@ -9,6 +9,8 @@ namespace SqlCop.Rules
 {
     public class TopRowFilterVisitor : TSqlConcreteFragmentVisitor
     {
+      public TSqlFragment SqlFragment { get; private set; }
+
       private int _leftParethesisCount;
       private int _rightParethesisCount;
 
@@ -16,6 +18,7 @@ namespace SqlCop.Rules
 
       public override void ExplicitVisit(TopRowFilter node)
       {
+        SqlFragment = node;
         for (int i = node.FirstTokenIndex; i <= node.LastTokenIndex; i++)
         {
           TSqlParserToken token = node.ScriptTokenStream[i];

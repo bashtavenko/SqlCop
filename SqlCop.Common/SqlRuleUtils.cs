@@ -7,8 +7,11 @@ using Microsoft.Data.Schema.StaticCodeAnalysis;
 using Microsoft.Data.Schema;
 
 
-namespace SqlCop.Rules
+namespace SqlCop.Common
 {
+  /// <summary>
+  ///  TBD
+  /// </summary>
   public static class SqlRuleUtils
   {
     /// <summary>
