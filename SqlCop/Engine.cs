@@ -14,27 +14,46 @@ using SqlCop.Rules;
 namespace SqlCop
 {
   public class Engine
-  {
-    public IList<SqlRuleProblem> Run (TextReader input)
+  { 
+    
+    public IList<SqlRuleProblem> Run(string sqlFragment, SqlRule rule)
     {
-      return Run(input, new TopRule());
+      using (TextReader textReader = new StringReader(sqlFragment))
+      {
+        return Run(textReader, rule);
+      }
     }
-
+    
     public IList<SqlRuleProblem> Run(TextReader input, SqlRule rule)
     {
       IList<SqlRuleProblem> problems;
 
       var parser = new TSql100Parser(true);
       var parseErrors = new List<ParseError>() as IList<ParseError>;
-      IScriptFragment script = parser.Parse(input, out parseErrors);
+      IScriptFragment scriptFragment = parser.Parse(input, out parseErrors);
+
+      if (parseErrors.Count > 0)
+      {
+        // TODO: do custom exception
+        var error = parseErrors[0];
+        var ex = new ArgumentException (error.Message);
+        throw ex;
+      }
 
       var context = new SqlRuleContext
       {
-        ScriptFragment = script as TSqlFragment,
+        ScriptFragment = scriptFragment,
+        //Script = scriptFragment as TSqlScript
       };
       
       problems = rule.Analyze(context);
       return problems;
+    }
+
+    public IList<SqlRuleProblem> Run(TextReader input)
+    {
+      /// todo: reflect over assembly and find all the rules
+      return Run(input, new TopRule());
     }
   }
 }

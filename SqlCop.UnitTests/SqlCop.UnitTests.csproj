@@ -60,6 +60,7 @@
     <Compile Include="EngineTest.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="TestFiles\StoredProc.sql" />
     <Content Include="TestFiles\TsqlSample2.sql" />
     <Content Include="TestFiles\TsqlSample1.sql" />
   </ItemGroup>

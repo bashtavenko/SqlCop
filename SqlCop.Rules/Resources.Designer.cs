@@ -61,6 +61,15 @@ namespace SqlCop.Rules {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Stored procedures must have SET NOCOUNT ON statement.
+        /// </summary>
+        internal static string SetNoCountOnRule {
+            get {
+                return ResourceManager.GetString("SetNoCountOnRule", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to TOP element must have parenthesis.
         /// </summary>
         internal static string TOP_parenthesis_rule {

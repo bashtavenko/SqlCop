@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="SetNoCountOnRule" xml:space="preserve">
+    <value>Stored procedures must have SET NOCOUNT ON statement</value>
+  </data>
   <data name="TOP_parenthesis_rule" xml:space="preserve">
     <value>TOP element must have parenthesis</value>
   </data>

@@ -41,6 +41,22 @@ namespace SqlCop.UnitTests
       TSqlScript script = Parse("TsqlSample1.sql");
       script.Accept(visitor);
       Assert.IsTrue(visitor.HasParenthesis);
+
+      visitor = new TopRowFilterVisitor();
+      script = Parse("TsqlSample2.sql");
+      script.Accept(visitor);
+      Assert.IsFalse(visitor.HasParenthesis);
+    }
+
+    [TestMethod]
+    public void SprocVisitor()
+    {
+      var visitor = new StoredProcVisitor();
+      TSqlScript script = Parse("StoredProc.sql");
+      script.Accept(visitor);
+      Assert.IsTrue(visitor.HasNocountOn);
+      Assert.IsTrue(visitor.HasTransactionIsolationLevel);
+      Assert.IsTrue(visitor.HasComments);
     }
 
     private TSqlScript Parse(string fileName)
