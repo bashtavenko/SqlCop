@@ -9,23 +9,22 @@ using SqlCop.Common;
 
 namespace SqlCop.Rules
 {
+  [SqlRule(Constants.Namespace, Constants.SetNoCountOnRuleId, Constants.SetNoCountOnRuleName, Constants.BaseRulesCategory)]
   public class SetNoCountOnRule : SqlRule
-  {
+  {    
     public override IList<SqlRuleProblem> Analyze(SqlRuleContext context)
     {
-      List<SqlRuleProblem> problems = new List<SqlRuleProblem>();
-
       TSqlScript script = context.ScriptFragment as TSqlScript;
       Debug.Assert(script != null, "TSqlScript is expected");
 
-      var visitor = new StoredProcVisitor();
-      script.Accept(visitor);
-      if (visitor.WasVisited && !visitor.HasNocountOn)
+      Visitor = new StoredProcVisitor();
+      script.Accept(Visitor);
+      if (Visitor.WasVisited && !(Visitor as StoredProcVisitor).HasNocountOn)
       {
-        problems.Add(new SqlRuleProblem(this, Resources.SetNoCountOnRule, visitor.SqlFragment));
+        AddProblem(Resources.SetNoCountOnRule);        
       }
 
-      return problems;
+      return Problems;
     }
   }
 }

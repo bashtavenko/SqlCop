@@ -9,6 +9,7 @@ using SqlCop.Common;
 
 namespace SqlCop.Rules
 {
+  [SqlRule(Constants.Namespace, Constants.TopRuleId, Constants.TopRuleName, Constants.BaseRulesCategory)]
   public class StoredProcVisitor : SqlCopVisitor
   {   
     public bool HasTransactionIsolationLevel { get; private set; }

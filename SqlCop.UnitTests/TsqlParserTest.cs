@@ -59,6 +59,14 @@ namespace SqlCop.UnitTests
       Assert.IsTrue(visitor.HasComments);
     }
 
+    [TestMethod]
+    public void StatementVisitor()
+    {
+      var visitor = new StatementVisitor();
+      TSqlScript script = Parse("TsqlSample1.sql");
+      script.Accept(visitor);      
+    }
+
     private TSqlScript Parse(string fileName)
     {
       var parser = new TSql100Parser(true);

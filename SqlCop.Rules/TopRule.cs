@@ -12,22 +12,22 @@ using SqlCop.Common;
 
 namespace SqlCop.Rules
 {  
+  [SqlRule(Constants.Namespace, Constants.TopRuleId, Constants.TopRuleName, Constants.BaseRulesCategory)]
   public class TopRule : SqlRule
   {
     public override IList<SqlRuleProblem> Analyze(SqlRuleContext context)
-    {
-      List<SqlRuleProblem> problems = new List<SqlRuleProblem>();
+    {      
       TSqlScript script = context.ScriptFragment as TSqlScript;
       Debug.Assert(script != null, "TSqlScript is expected");
 
-      var visitor = new TopRowFilterVisitor();
-      script.Accept(visitor);
-      if (visitor.WasVisited && !visitor.HasParenthesis)
+      Visitor = new TopRowFilterVisitor();
+      script.Accept(Visitor);
+      if (Visitor.WasVisited && !(Visitor as TopRowFilterVisitor).HasParenthesis)
       {              
-        problems.Add(new SqlRuleProblem(this, Resources.TOP_parenthesis_rule, visitor.SqlFragment));
+        AddProblem(Resources.TopRule);
       }
 
-      return problems;
+      return Problems;
     }
   }
 }

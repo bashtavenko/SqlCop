@@ -72,9 +72,9 @@ namespace SqlCop.Rules {
         /// <summary>
         ///   Looks up a localized string similar to TOP element must have parenthesis.
         /// </summary>
-        internal static string TOP_parenthesis_rule {
+        internal static string TopRule {
             get {
-                return ResourceManager.GetString("TOP_parenthesis_rule", resourceCulture);
+                return ResourceManager.GetString("TopRule", resourceCulture);
             }
         }
     }

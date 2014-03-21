@@ -9,12 +9,15 @@ namespace SqlCop.Rules
   // TBD
   internal class Constants
   {
-    public const string NameSpace = "SqlCop.Rules";
-    public const string ResourceBaseName = "SqlCop.RuleResources";
-    public const string CategorySamples = "CategorySamples";
+    public const string Namespace = "SqlCop.Rules";    
+    public const string BaseRulesCategory = "Base";
 
     public const string TopRuleId = "SQ1000";
-    public const string TopRule_RuleName = "TOP parenthesis rule";
-    public const string TopRule_ProblemDescription = "TOP_parenthesis_rule";
+    public const string TopRuleName = "TOP parenthesis";
+
+    public const string SetNoCountOnRuleId = "SQ1001";
+    public const string SetNoCountOnRuleName = "SET NOCOUNT ON";
+
+
   }
 }
