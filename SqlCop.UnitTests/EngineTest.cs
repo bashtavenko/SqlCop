@@ -19,7 +19,7 @@ namespace SqlCop.UnitTests
 
     [TestMethod]
     public void TestRun()
-    {      
+    {
       IList<SqlRuleProblem> problems;
 
       using (var sr = new StreamReader(GetFilePath("TsqlSample1.sql")))
@@ -83,7 +83,21 @@ namespace SqlCop.UnitTests
       string sql;
       sql = @"CREATE PROCEDURE dbo._Stored_Procedure_Template ( @Parameter_1 INT ) AS RETURN;";
       problems = _engine.Run(sql, rule);
-      Assert.AreEqual(1, problems.Count);      
+      Assert.AreEqual(1, problems.Count);
+    }
+
+    [TestMethod]
+    public void GetRules_Reflection_Test()
+    {
+      var list = _engine.GetRules();
+    }
+
+    [TestMethod]
+    public void RunAllRules()
+    {
+      IList<SqlRuleProblem> problems;
+      string sql = "SELECT TOP 10 * FROM abc";
+      problems = _engine.Run(sql);
     }
   }
 }
