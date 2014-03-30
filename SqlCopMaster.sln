@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SqlCop.Rules", "SqlCop.Rule
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SqlCop.Common", "SqlCop.Common\SqlCop.Common.csproj", "{018C98CC-D80D-44E3-A668-3ACCDA856EB5}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SqlCop.CommonBinaries", "SqlCop.CommonBinaries\SqlCop.CommonBinaries.csproj", "{7E454198-0BFF-4E7F-9C87-207E4ECBF395}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -31,6 +33,10 @@ Global
 		{018C98CC-D80D-44E3-A668-3ACCDA856EB5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{018C98CC-D80D-44E3-A668-3ACCDA856EB5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{018C98CC-D80D-44E3-A668-3ACCDA856EB5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7E454198-0BFF-4E7F-9C87-207E4ECBF395}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7E454198-0BFF-4E7F-9C87-207E4ECBF395}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7E454198-0BFF-4E7F-9C87-207E4ECBF395}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7E454198-0BFF-4E7F-9C87-207E4ECBF395}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
