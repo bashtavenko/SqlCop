@@ -63,6 +63,7 @@
     <Compile Include="SqlRuleModel.cs" />
     <Compile Include="SqlRuleProblem.cs" />
     <Compile Include="SqlRuleProblemSeverity.cs" />
+    <Compile Include="SqlRuleRequest.cs" />
     <Compile Include="SqlRuleUtils.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

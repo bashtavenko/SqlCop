@@ -24,13 +24,13 @@ namespace SqlCop.UnitTests
 
       using (var sr = new StreamReader(GetFilePath("TsqlSample1.sql")))
       {
-        problems = _engine.Run(sr);
+        problems = _engine.RunRules(sr, null);
         Assert.AreEqual(0, problems.Count);
       }
 
       using (var sr = new StreamReader(GetFilePath("TsqlSample2.sql")))
       {
-        problems = _engine.Run(sr);
+        problems = _engine.RunRules(sr, null);
         Assert.AreEqual(1, problems.Count);
       }
     }
@@ -43,22 +43,21 @@ namespace SqlCop.UnitTests
       string sql;
 
       sql = "SELECT TOP(10) * FROM abc";
-      problems = _engine.Run(sql, rule);
+      problems = _engine.RunRules(sql, GetRuleRequest(Constants.Namespace, Constants.TopRuleId));
       Assert.AreEqual(0, problems.Count);
 
       sql = "SELECT TOP 10 * FROM abc";
-      problems = _engine.Run(sql, rule);
+      problems = _engine.RunRules(sql, GetRuleRequest(Constants.Namespace, Constants.TopRuleId));
       Assert.AreEqual(1, problems.Count);
     }
 
     [TestMethod]
     public void SetNoCountOnRule()
-    {
-      var rule = new SetNoCountOnRule();
+    {      
       IList<SqlRuleProblem> problems;
       using (var sr = new StreamReader(GetFilePath("StoredProc.sql")))
-      {
-        problems = _engine.Run(sr, rule);
+      {        
+        problems = _engine.RunRules(sr, GetRuleRequest(Constants.Namespace, Constants.SetNoCountOnRuleId));
         Assert.AreEqual(0, problems.Count);
       }
     }
@@ -70,19 +69,18 @@ namespace SqlCop.UnitTests
       IList<SqlRuleProblem> problems;
       using (var sr = new StreamReader(GetFilePath("TsqlSample1.sql")))
       {
-        problems = _engine.Run(sr, rule);
+        problems = _engine.RunRules(sr, GetRuleRequest(Constants.Namespace, Constants.SetNoCountOnRuleId ));
         Assert.AreEqual(0, problems.Count);
       }
     }
 
     [TestMethod]
     public void SetNoCountOnRule2()
-    {
-      var rule = new SetNoCountOnRule();
+    { 
       IList<SqlRuleProblem> problems;
       string sql;
       sql = @"CREATE PROCEDURE dbo._Stored_Procedure_Template ( @Parameter_1 INT ) AS RETURN;";
-      problems = _engine.Run(sql, rule);
+      problems = _engine.RunRules(sql, GetRuleRequest(Constants.Namespace, Constants.SetNoCountOnRuleId)) ;
       Assert.AreEqual(1, problems.Count);
     }
 
@@ -97,7 +95,13 @@ namespace SqlCop.UnitTests
     {
       IList<SqlRuleProblem> problems;
       string sql = "SELECT TOP 10 * FROM abc";
-      problems = _engine.Run(sql);
+      problems = _engine.RunRules(sql, null);
     }
+
+    private IList<SqlRuleRequest> GetRuleRequest(string @namespace, string id)
+    {
+      return new List<SqlRuleRequest> {new SqlRuleRequest { Namespace = @namespace, Id = @id }};
+    }
+
   }
 }

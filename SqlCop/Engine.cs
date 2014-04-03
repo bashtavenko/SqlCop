@@ -3,40 +3,34 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.Data.Schema.SchemaModel;
 using Microsoft.Data.Schema.ScriptDom;
 using Microsoft.Data.Schema.ScriptDom.Sql;
-using Microsoft.Data.Schema.StaticCodeAnalysis;
 using SqlCop.Common;
-using SqlCop.Rules;
 
 namespace SqlCop
 {
   public class Engine
-  {     
-    public IList<SqlRuleProblem> Run(string sqlFragment, SqlRule rule)
+  {
+    public IList<SqlRuleProblem> RunRules(string sqlFragment, IList<SqlRuleRequest> ruleRequestList)
     {
       using (TextReader textReader = new StringReader(sqlFragment))
       {
-        return Run(textReader, rule);
+        return RunRules(textReader, null);
       }
     }
 
-    public IList<SqlRuleProblem> Run(string sqlFragment)
-    {
-      using (TextReader textReader = new StringReader(sqlFragment))
-      {
-        return Run(textReader);
-      }
-    }
-
-    public IList<SqlRuleProblem> Run(TextReader input)
+    public IList<SqlRuleProblem> RunRules(TextReader input, IList<SqlRuleRequest> ruleRequestList)
     {      
       List<SqlRule> rules = new List<SqlRule>();
 
       IList<SqlRuleModel> ruleList = GetRules();
+      if (ruleRequestList != null)
+      {
+        ruleList = ruleList.Join(ruleRequestList,
+          s => new { @Namespace = s.Namespace, Id = s.Id },
+          t => new { @Namespace = t.Namespace, Id = t.Id },
+          (s, t) => s).ToList();
+      }
       foreach (var ruleModel in ruleList)
       {
         SqlRule rule = Activator.CreateInstance(ruleModel.RuleType) as SqlRule;
@@ -47,41 +41,8 @@ namespace SqlCop
       }
       IList<SqlRuleProblem> problems = Run(input, rules);
       return problems;
-    }
-
-    public IList<SqlRuleProblem> Run(TextReader input, IList<SqlRule> rules)
-    {
-        List<SqlRuleProblem> problems = new List<SqlRuleProblem>();
-
-        var parser = new TSql100Parser(true);
-        var parseErrors = new List<ParseError>() as IList<ParseError>;
-        IScriptFragment scriptFragment = parser.Parse(input, out parseErrors);
-
-        if (parseErrors.Count > 0)
-        {
-          // TODO: do custom exception
-          var error = parseErrors[0];
-          var ex = new ArgumentException(error.Message);
-          throw ex;
-        }
-        var context = new SqlRuleContext
-        {
-          ScriptFragment = scriptFragment,          
-        };
-
-        foreach (var rule in rules)
-        {
-          var rulePoblems = rule.Analyze(context);
-          problems.AddRange(rulePoblems);
-        }
-        return problems;
-    }
-
-    public IList<SqlRuleProblem> Run(TextReader input, SqlRule rule)
-    {
-      return Run(input, new List<SqlRule> { rule });
-    }
-
+    }           
+        
     public IList<SqlRuleModel> GetRules()
     {
       var rules = new List<SqlRuleModel>();
@@ -112,5 +73,47 @@ namespace SqlCop
       }
       return rules;
     }
+
+    private IList<SqlRuleProblem> RunOne(TextReader input, SqlRule rule)
+    {
+      return Run(input, new List<SqlRule> { rule });
+    }
+
+    private IList<SqlRuleProblem> RunOne(string sqlFragment, SqlRule rule)
+    {
+      using (TextReader textReader = new StringReader(sqlFragment))
+      {
+        return RunOne(textReader, rule);
+      }
+    }
+
+    // Main run method
+    private IList<SqlRuleProblem> Run(TextReader input, IList<SqlRule> rules)
+    {
+      List<SqlRuleProblem> problems = new List<SqlRuleProblem>();
+
+      var parser = new TSql100Parser(true);
+      var parseErrors = new List<ParseError>() as IList<ParseError>;
+      IScriptFragment scriptFragment = parser.Parse(input, out parseErrors);
+
+      if (parseErrors.Count > 0)
+      {
+        // TODO: do custom exception
+        var error = parseErrors[0];
+        var ex = new ArgumentException(error.Message);
+        throw ex;
+      }
+      var context = new SqlRuleContext
+      {
+        ScriptFragment = scriptFragment,
+      };
+
+      foreach (var rule in rules)
+      {
+        var rulePoblems = rule.Analyze(context);
+        problems.AddRange(rulePoblems);
+      }
+      return problems;
+    }    
   }
 }

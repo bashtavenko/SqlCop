@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace SqlCop.Rules
 {
-  // TBD
-  internal class Constants
+  // Public since we need constants for unit testing
+  public class Constants
   {
     public const string Namespace = "SqlCop.Rules";    
     public const string BaseRulesCategory = "Base";
