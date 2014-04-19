@@ -8,7 +8,7 @@ using SqlCop.Common;
 
 namespace SqlCop.Rules
 {
-    public class StatementVisitor : SqlCopVisitor
+    public class StatementVisitor : Visitor
     {
       private List<TSqlTokenType> _tokenTypes = new List<TSqlTokenType>
       {

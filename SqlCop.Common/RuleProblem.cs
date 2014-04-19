@@ -8,19 +8,19 @@ using Microsoft.Data.Schema.ScriptDom.Sql;
 
 namespace SqlCop.Common
 {
-  public class SqlRuleProblem
+  public class RuleProblem
   {
-    private readonly SqlRule _rule;
+    private readonly Rule _rule;
     private readonly string _description;
     private readonly TSqlFragment _sqlFragment;
 
 
-    public SqlRuleProblem(SqlRule rule, string description)
+    public RuleProblem(Rule rule, string description)
       : this(rule, description, null)
     {
     }
     
-    public SqlRuleProblem(SqlRule rule, string description, TSqlFragment sqlFragment)
+    public RuleProblem(Rule rule, string description, TSqlFragment sqlFragment)
     {
       _rule = rule;
       _description = description;
@@ -31,8 +31,8 @@ namespace SqlCop.Common
     public string ErrorMessageString { get; set; }    
     public string FileName { get; set; }
     public TSqlFragment SqlFragment { get { return _sqlFragment; } }
-    public SqlRule Rule { get { return _rule; } }    
-    public SqlRuleProblemSeverity Severity { get; set; }
+    public Rule Rule { get { return _rule; } }    
+    public RuleProblemSeverity Severity { get; set; }
     public int StartColumn { get { return _sqlFragment.StartColumn; } }
     public int StartLine { get { return _sqlFragment.StartLine; } }    
   }

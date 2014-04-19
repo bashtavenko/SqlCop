@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SqlCop.Common
 {  
-  public enum SqlRuleProblemSeverity
+  public enum RuleProblemSeverity
   { 
     Unknown = 0,   
     Warning = 1,    

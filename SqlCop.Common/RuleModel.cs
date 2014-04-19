@@ -6,9 +6,12 @@ using System.Threading.Tasks;
 
 namespace SqlCop.Common
 {
-  public class SqlRuleRequest
+  public class RuleModel
   {
     public string Namespace { get; set; }
-    public string Id { get; set; }        
+    public string Id { get; set; }
+    public string Name { get; set; }
+    public string Category { get; set; }
+    public Type RuleType { get; set; }
   }
 }

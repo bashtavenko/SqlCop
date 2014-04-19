@@ -11,7 +11,7 @@ namespace SqlCop
 {
   public class Engine
   {
-    public IList<SqlRuleProblem> RunRules(string sqlFragment, IList<SqlRuleRequest> ruleRequestList)
+    public IList<RuleProblem> RunRules(string sqlFragment, IList<RuleModel> ruleRequestList)
     {
       using (TextReader textReader = new StringReader(sqlFragment))
       {
@@ -19,11 +19,11 @@ namespace SqlCop
       }
     }
 
-    public IList<SqlRuleProblem> RunRules(TextReader input, IList<SqlRuleRequest> ruleRequestList)
+    public IList<RuleProblem> RunRules(TextReader input, IList<RuleModel> ruleRequestList)
     {      
-      List<SqlRule> rules = new List<SqlRule>();
+      List<Rule> rules = new List<Rule>();
 
-      IList<SqlRuleModel> ruleList = GetRules();
+      IList<RuleModel> ruleList = GetRules();
       if (ruleRequestList != null)
       {
         ruleList = ruleList.Join(ruleRequestList,
@@ -33,33 +33,33 @@ namespace SqlCop
       }
       foreach (var ruleModel in ruleList)
       {
-        SqlRule rule = Activator.CreateInstance(ruleModel.RuleType) as SqlRule;
+        Rule rule = Activator.CreateInstance(ruleModel.RuleType) as Rule;
         if (rule != null)
         {
           rules.Add(rule);          
         }
       }
-      IList<SqlRuleProblem> problems = Run(input, rules);
+      IList<RuleProblem> problems = Run(input, rules);
       return problems;
     }           
         
-    public IList<SqlRuleModel> GetRules()
+    public IList<RuleModel> GetRules()
     {
-      var rules = new List<SqlRuleModel>();
+      var rules = new List<RuleModel>();
 
       Assembly asm = Assembly.Load("SqlCop.Rules");
       Type[] types = asm.GetTypes();
 
-      IEnumerable<Type> sqlRuleTypes = types.Where(s => s.BaseType == typeof(SqlRule));
+      IEnumerable<Type> sqlRuleTypes = types.Where(s => s.BaseType == typeof(Rule));
       foreach(Type type in sqlRuleTypes)
       {
-        IEnumerable<CustomAttributeData> attributes = type.CustomAttributes.Where(a => a.AttributeType == typeof(SqlRuleAttribute));
+        IEnumerable<CustomAttributeData> attributes = type.CustomAttributes.Where(a => a.AttributeType == typeof(RuleAttribute));
         foreach (var ruleAttribute in attributes)
         {
           IList<CustomAttributeTypedArgument> args = ruleAttribute.ConstructorArguments;
           if (args.Count == 4)
           {
-            var rule = new SqlRuleModel()
+            var rule = new RuleModel()
             {
               Namespace = args[0].Value as string,
               Id = args[1].Value as string,
@@ -74,12 +74,12 @@ namespace SqlCop
       return rules;
     }
 
-    private IList<SqlRuleProblem> RunOne(TextReader input, SqlRule rule)
+    private IList<RuleProblem> RunOne(TextReader input, Rule rule)
     {
-      return Run(input, new List<SqlRule> { rule });
+      return Run(input, new List<Rule> { rule });
     }
 
-    private IList<SqlRuleProblem> RunOne(string sqlFragment, SqlRule rule)
+    private IList<RuleProblem> RunOne(string sqlFragment, Rule rule)
     {
       using (TextReader textReader = new StringReader(sqlFragment))
       {
@@ -88,9 +88,9 @@ namespace SqlCop
     }
 
     // Main run method
-    private IList<SqlRuleProblem> Run(TextReader input, IList<SqlRule> rules)
+    private IList<RuleProblem> Run(TextReader input, IList<Rule> rules)
     {
-      List<SqlRuleProblem> problems = new List<SqlRuleProblem>();
+      List<RuleProblem> problems = new List<RuleProblem>();
 
       var parser = new TSql100Parser(true);
       var parseErrors = new List<ParseError>() as IList<ParseError>;
@@ -103,7 +103,7 @@ namespace SqlCop
         var ex = new ArgumentException(error.Message);
         throw ex;
       }
-      var context = new SqlRuleContext
+      var context = new RuleContext
       {
         ScriptFragment = scriptFragment,
       };

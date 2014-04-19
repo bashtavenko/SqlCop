@@ -12,7 +12,7 @@ namespace SqlCop.Common
   /// <summary>
   ///  TBD
   /// </summary>
-  public static class SqlRuleUtils
+  public static class RuleUtils
   {
     /// <summary>
     /// Get escaped fully qualified name of a model element 

@@ -7,7 +7,7 @@ using SqlCop.Common;
 
 namespace SqlCop.Rules
 {
-    public class TopRowFilterVisitor : SqlCopVisitor
+    public class TopRowFilterVisitor : Visitor
     {
       private int _leftParethesisCount;
       private int _rightParethesisCount;      

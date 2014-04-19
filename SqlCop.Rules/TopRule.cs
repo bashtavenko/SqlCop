@@ -12,10 +12,10 @@ using SqlCop.Common;
 
 namespace SqlCop.Rules
 {  
-  [SqlRule(Constants.Namespace, Constants.TopRuleId, Constants.TopRuleName, Constants.BaseRulesCategory)]
-  public class TopRule : SqlRule
+  [Rule(Constants.Namespace, Constants.TopRuleId, Constants.TopRuleName, Constants.BaseRulesCategory)]
+  public class TopRule : Rule
   {
-    public override IList<SqlRuleProblem> Analyze(SqlRuleContext context)
+    public override IList<RuleProblem> Analyze(RuleContext context)
     {      
       TSqlScript script = context.ScriptFragment as TSqlScript;
       Debug.Assert(script != null, "TSqlScript is expected");

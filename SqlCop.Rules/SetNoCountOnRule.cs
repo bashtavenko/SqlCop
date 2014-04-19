@@ -9,10 +9,10 @@ using SqlCop.Common;
 
 namespace SqlCop.Rules
 {
-  [SqlRule(Constants.Namespace, Constants.SetNoCountOnRuleId, Constants.SetNoCountOnRuleName, Constants.BaseRulesCategory)]
-  public class SetNoCountOnRule : SqlRule
+  [Rule(Constants.Namespace, Constants.SetNoCountOnRuleId, Constants.SetNoCountOnRuleName, Constants.BaseRulesCategory)]
+  public class SetNoCountOnRule : Rule
   {    
-    public override IList<SqlRuleProblem> Analyze(SqlRuleContext context)
+    public override IList<RuleProblem> Analyze(RuleContext context)
     {
       TSqlScript script = context.ScriptFragment as TSqlScript;
       Debug.Assert(script != null, "TSqlScript is expected");

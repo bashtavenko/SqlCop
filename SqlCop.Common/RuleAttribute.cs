@@ -7,14 +7,14 @@ using System.Threading.Tasks;
 namespace SqlCop.Common
 {
   [AttributeUsage(AttributeTargets.Class, AllowMultiple = false)]
-  public class SqlRuleAttribute : Attribute
+  public class RuleAttribute : Attribute
   {
     private readonly string _namespace;
     private readonly string _id;
     private readonly string _name;
     private readonly string _category;    
 
-    public SqlRuleAttribute (string @namespace, string id, string name, string category)
+    public RuleAttribute (string @namespace, string id, string name, string category)
     {
       _namespace = @namespace;
       _id = id;
