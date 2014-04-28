@@ -10,22 +10,37 @@ using SqlCop.Common;
 namespace SqlCop.IntegrationTests
 {
   [TestClass]
-  public class ServiceTests
-  {
+  public class ServiceTests : IDisposable
+  {    
+    private JsonServiceClient _client;
+        
+    [TestInitialize]
+    public void Init()
+    {
+      _client = new JsonServiceClient("http://localhost:42020");
+    }
+
     [TestMethod]
     public void CallServicePost()
-    {
-      var client = new JsonServiceClient("http://localhost:42020/check");
-      var response = client.Post<List<SqlCop.ServiceModel.RuleProblem>>(new CheckRules { Sql = "SELECT TOP(1) FROM pubs;" });
-      Assert.AreEqual(0, response.Count);
+    {      
+      List<SqlCop.ServiceModel.RuleProblem> response = _client.Post(new CheckRules { Sql = "SELECT TOP 1 * FROM pubs;"});      
+      Assert.AreEqual(1, response.Count);
     }
 
     [TestMethod]
     public void CallServiceGet()
-    {
-      var client = new JsonServiceClient("http://localhost:42020/rules");
-      var response = client.Get<List<RuleModel>>(new GetRules { });
+    {      
+      List<RuleModel> response = _client.Get(new GetRules { });
       Assert.IsTrue(response.Any());
+    }
+
+    public void Dispose()
+    {
+      if (_client != null)
+      {
+        _client.Dispose();
+        _client = null;
+      }
     }
   }
 }
