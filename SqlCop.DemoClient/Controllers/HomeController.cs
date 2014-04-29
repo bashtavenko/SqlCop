@@ -24,19 +24,23 @@ namespace SqlCop.DemoClient.Controllers
         IList<RuleModel> rules = _client.Get(new GetRules { });
         var modelRules = Mapper.Map<IList<RuleModel>, IList<SqlCop.DemoClient.ViewModels.Rule>>(rules);
        
-        var model = new Home { Rules = modelRules };
+        var model = new Home { AllRules = modelRules };
         return View(model);
       }
 
       [HttpPost]
       public ActionResult Index(Home model)
       {
-        //IList<RuleModel> rules = _client.Get(new GetRules { });
-        //var modelRules = Mapper.Map<IList<RuleModel>, IList<SqlCop.DemoClient.ViewModels.Rule>>(rules);
+        var dto = new CheckRules { Sql = model.Sql };
+        List<SqlCop.ServiceModel.RuleProblem> response = _client.Post(dto);
 
-        //var model = new Home { Rules = modelRules };
-        //return View(model);
-        return RedirectToAction("Index");
+        var homeModel = new Home { Sql = model.Sql };
+        if (response.Any())
+        {
+          homeModel.Problems = response;
+        }
+
+        return View(homeModel);
       }
     }
 }

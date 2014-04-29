@@ -21,10 +21,10 @@
       </tr>
     </thead>
   <tbody>
-  @foreach(Rule rule in Model.Rules)
+  @foreach(Rule rule in Model.AllRules)
   {
     <tr>
-      <td>@Html.CheckBox("Selected", rule.Selected)</td>
+      <td><input type="checkbox" name="SelectedRules" id="@rule.Id" /></td>
       <td>@rule.Id</td>
       <td>@rule.Name</td>
       <td>@rule.Namespace</td>
@@ -55,7 +55,7 @@
         <th>Column</th>
       </tr>
     </thead>
-  @foreach(SqlCop.Common.RuleProblem problem in Model.Problems)
+  @foreach(SqlCop.ServiceModel.RuleProblem problem in Model.Problems)
   {
     <tr>
       <td>@problem.ErrorMessageString</td>
