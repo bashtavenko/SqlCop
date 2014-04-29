@@ -1,0 +1,68 @@
+﻿@using SqlCop.DemoClient.ViewModels;
+@using System.Linq;
+@model Home
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Demo</h2>
+
+@using (Html.BeginForm())
+{ 
+  <table>
+    <thead>
+      <tr>
+        <th></th>
+        <th>Id</th>
+        <th>Name</th>
+        <th>Namespace</th>
+        <th>Category</th>
+      </tr>
+    </thead>
+  <tbody>
+  @foreach(Rule rule in Model.Rules)
+  {
+    <tr>
+      <td>@Html.CheckBox("Selected", rule.Selected)</td>
+      <td>@rule.Id</td>
+      <td>@rule.Name</td>
+      <td>@rule.Namespace</td>
+      <td>@rule.Category</td>
+    </tr>  
+  }
+  </tbody>
+  </table>
+
+  <br />
+
+  @Html.TextAreaFor(s => s.Sql)
+
+  <br />
+
+  <input type="submit" value="Check" />
+  
+}
+
+@if (Model.Problems.Any())
+{ 
+  <table>
+    <thead>
+      <tr>
+        <th>Error</th>
+        <th>Description</th>
+        <th>Line</th>
+        <th>Column</th>
+      </tr>
+    </thead>
+  @foreach(SqlCop.Common.RuleProblem problem in Model.Problems)
+  {
+    <tr>
+      <td>@problem.ErrorMessageString</td>
+      <td>@problem.Description</td>    
+      <td>@problem.StartLine</td>
+      <td>@problem.StartColumn</td>
+    </tr>  
+  }
+  </table>
+}
