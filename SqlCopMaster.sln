@@ -19,6 +19,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SqlCop.ServiceInterface", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SqlCop.IntegrationTests", "SqlCop.IntegrationTests\SqlCop.IntegrationTests.csproj", "{342251E8-0CB3-4E49-AD36-1F7C52B24444}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SqlCop.DemoClient", "SqlCop.DemoClient\SqlCop.DemoClient.csproj", "{469C5D81-1530-44DF-B456-7AA501D8DAB7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -61,6 +63,10 @@ Global
 		{342251E8-0CB3-4E49-AD36-1F7C52B24444}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{342251E8-0CB3-4E49-AD36-1F7C52B24444}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{342251E8-0CB3-4E49-AD36-1F7C52B24444}.Release|Any CPU.Build.0 = Release|Any CPU
+		{469C5D81-1530-44DF-B456-7AA501D8DAB7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{469C5D81-1530-44DF-B456-7AA501D8DAB7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{469C5D81-1530-44DF-B456-7AA501D8DAB7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{469C5D81-1530-44DF-B456-7AA501D8DAB7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
