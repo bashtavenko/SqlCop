@@ -11,6 +11,7 @@ namespace SqlCop.DemoClient.ViewModels
     public string Sql { get; set; }
     public IList<SqlCop.ServiceModel.RuleProblem> Problems { get; set; }
     public string ErrorDescription { get; set; }
+    public string SuccessMessage { get; set; }
     public List<string> SelectedRules { get; set; }
 
     public Home()

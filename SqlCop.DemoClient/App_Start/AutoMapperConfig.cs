@@ -12,8 +12,7 @@ namespace SqlCop.DemoClient
     {
         public static void CreateMaps()
         {
-          Mapper.CreateMap<RuleModel, ViewModels.Rule>()
-            .ForMember(m => m.Selected, opt => opt.UseValue(true));
+          Mapper.CreateMap<RuleModel, ViewModels.Rule>();            
         }
     }
 }

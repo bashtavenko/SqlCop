@@ -34,12 +34,12 @@ namespace SqlCop.DemoClient.Controllers
         var dto = new CheckRules { Sql = model.Sql, Rules = new List<RuleModel>()};
 
         if (model.SelectedRules != null)
-        {
+        {          
           foreach (string ruleId in model.SelectedRules)
           {
             dto.Rules.Add(new RuleModel { Id = ruleId, Namespace = "SqlCop.Rules" });
             var item = homeModel.AllRules.SingleOrDefault(s => s.Id == ruleId);
-            //if (item != null) item.Selected = true;
+            if (item != null) item.Selected = true;
           }
         }
                                  
@@ -52,10 +52,14 @@ namespace SqlCop.DemoClient.Controllers
         {
           homeModel.ErrorDescription = ex.ErrorMessage;
         }
-                
-        if (response !=null && response.Any())
+
+        if (response != null && response.Any())
         {
           homeModel.Problems = response;
+        }
+        else
+        {
+          homeModel.SuccessMessage = "No rule violations found";
         }
 
         return View(homeModel);
