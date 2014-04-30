@@ -20,27 +20,54 @@ namespace SqlCop.DemoClient.Controllers
       }    
 
       public ActionResult Index()
-      {        
-        IList<RuleModel> rules = _client.Get(new GetRules { });
-        var modelRules = Mapper.Map<IList<RuleModel>, IList<SqlCop.DemoClient.ViewModels.Rule>>(rules);
-       
-        var model = new Home { AllRules = modelRules };
+      { 
+        var model = BuildModel();
         return View(model);
       }
 
       [HttpPost]
       public ActionResult Index(Home model)
       {
-        var dto = new CheckRules { Sql = model.Sql };
-        List<SqlCop.ServiceModel.RuleProblem> response = _client.Post(dto);
+        var homeModel = BuildModel();
+        homeModel.Sql = model.Sql;   
+        
+        var dto = new CheckRules { Sql = model.Sql, Rules = new List<RuleModel>()};
 
-        var homeModel = new Home { Sql = model.Sql };
-        if (response.Any())
+        if (model.SelectedRules != null)
+        {
+          foreach (string ruleId in model.SelectedRules)
+          {
+            dto.Rules.Add(new RuleModel { Id = ruleId, Namespace = "SqlCop.Rules" });
+            var item = homeModel.AllRules.SingleOrDefault(s => s.Id == ruleId);
+            //if (item != null) item.Selected = true;
+          }
+        }
+                                 
+        List<SqlCop.ServiceModel.RuleProblem> response = null;
+        try
+        {
+           response = _client.Post(dto);
+        }
+        catch (WebServiceException ex)
+        {
+          homeModel.ErrorDescription = ex.ErrorMessage;
+        }
+                
+        if (response !=null && response.Any())
         {
           homeModel.Problems = response;
         }
 
         return View(homeModel);
+      }
+
+      private Home BuildModel()
+      {       
+        IList<RuleModel> rules = _client.Get(new GetRules { });
+        var modelRules = Mapper.Map<IList<RuleModel>, IList<SqlCop.DemoClient.ViewModels.Rule>>(rules);
+       
+        var model = new Home { AllRules = modelRules };
+        return model;      
       }
     }
 }

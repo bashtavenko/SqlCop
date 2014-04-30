@@ -6,6 +6,14 @@
     ViewBag.Title = "Index";
 }
 
+<style>
+  textarea
+  {
+    width:800px;
+    height: 300px;
+  }
+</style>
+
 <h2>Demo</h2>
 
 @using (Html.BeginForm())
@@ -24,7 +32,8 @@
   @foreach(Rule rule in Model.AllRules)
   {
     <tr>
-      <td><input type="checkbox" name="SelectedRules" id="@rule.Id" /></td>
+      <!-- <td><input type="checkbox" id="SelectedRules" name="SelectedRules" value="@rule.Id"  /></td> -->
+      <td>@Html.CheckBox("SelectedRules", @rule.Selected, new {value=@rule.Id})</td>
       <td>@rule.Id</td>
       <td>@rule.Name</td>
       <td>@rule.Namespace</td>
@@ -38,10 +47,15 @@
 
   @Html.TextAreaFor(s => s.Sql)
 
-  <br />
+  <p />
 
   <input type="submit" value="Check" />
   
+}
+
+@if (!string.IsNullOrEmpty(Model.ErrorDescription))
+{ 
+  <div style="color:red;">@Model.ErrorDescription</div>
 }
 
 @if (Model.Problems.Any())

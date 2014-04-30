@@ -13,7 +13,7 @@ namespace SqlCop.ServiceInterface
     public List<SqlCop.ServiceModel.RuleProblem> Post(CheckRules request)
     {
       var engine = new Engine();
-      var list = engine.RunRules(request.Sql, null);
+      var list = engine.RunRules(request.Sql, request.Rules);
       return list.Select(s => 
         new SqlCop.ServiceModel.RuleProblem
         { 

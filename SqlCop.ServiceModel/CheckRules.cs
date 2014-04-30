@@ -12,6 +12,6 @@ namespace SqlCop.ServiceModel
   public class CheckRules : IReturn<List<RuleProblem>>
   {
     public string Sql { get; set; }
-    public RuleModel[] Rules { get; set; }
+    public List<RuleModel> Rules { get; set; }
   }
 }

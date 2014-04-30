@@ -257,6 +257,10 @@
       <Project>{018c98cc-d80d-44e3-a668-3accda856eb5}</Project>
       <Name>SqlCop.Common</Name>
     </ProjectReference>
+    <ProjectReference Include="..\SqlCop.Rules\SqlCop.Rules.csproj">
+      <Project>{198b3ad0-ecee-46ad-bb42-aaf679c5cbff}</Project>
+      <Name>SqlCop.Rules</Name>
+    </ProjectReference>
     <ProjectReference Include="..\SqlCop.ServiceInterface\SqlCop.ServiceInterface.csproj">
       <Project>{e603c2d1-041d-4d23-83e6-dda5c0fece14}</Project>
       <Name>SqlCop.ServiceInterface</Name>

@@ -15,7 +15,7 @@ namespace SqlCop
     {
       using (TextReader textReader = new StringReader(sqlFragment))
       {
-        return RunRules(textReader, null);
+        return RunRules(textReader, ruleRequestList);
       }
     }
 
