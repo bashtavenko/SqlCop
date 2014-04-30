@@ -1,0 +1,55 @@
+﻿@using System.Web.Mvc
+
+@helper Example1(){      
+   <a data-sql="SELECT TOP 10 * FROM PUBS" href="#">Example 1</a>
+}
+
+@helper Example2(){      
+   <a data-sql="SELECT TOP (10) * FROM PUBS" href="#">Example 2</a>
+}
+
+
+@helper Example3(){
+    <a data-sql="
+  CREATE PROCEDURE dbo._Stored_Procedure_Template       
+  (
+    @@Parameter_1 INT,
+    @@Parameter_2 VARCHAR(50) = ''  
+  )
+  AS
+  SET NOCOUNT ON;
+  SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED;
+
+  -- Created: mm/dd/yy userid
+  -- Purpose: (specific description of functionality)
+  -- Used in: (original page name and/or procedure name)
+
+  -- mm/dd/yy userid: Change comment
+
+  -- Meaningful code goes here
+
+  RETURN;
+  GO" href="#">Example 3</a>
+}
+
+@helper Example4(){
+    <a data-sql="
+  CREATE PROCEDURE dbo._Stored_Procedure_Template       
+  (
+    @@Parameter_1 INT,
+    @@Parameter_2 VARCHAR(50) = ''  
+  )
+  AS  
+  SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED;
+
+  -- Created: mm/dd/yy userid
+  -- Purpose: (specific description of functionality)
+  -- Used in: (original page name and/or procedure name)
+
+  -- mm/dd/yy userid: Change comment
+
+  -- Meaningful code goes here
+
+  RETURN;
+  GO" href="#">Example 4</a>
+}
