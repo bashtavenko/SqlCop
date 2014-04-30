@@ -42,14 +42,10 @@
   {
     <tr>
       <td>
-        @if (rule.Selected)
-        { 
-          <input type="checkbox" id="SelectedRules" name="SelectedRules" checked="checked" value="@rule.Id" />
-        }
-        else
-        { 
-          <input type="checkbox" id="SelectedRules" name="SelectedRules" value="@rule.Id" />
-        }                
+        @{
+          var c = rule.Selected ? "checked='checked'" : string.Empty;
+        }        
+        <input type="checkbox" id="SelectedRules" name="SelectedRules" @c value="@rule.Id" />
       </td>     
       <td>@rule.Id</td>
       <td>@rule.Name</td>
@@ -62,29 +58,11 @@
 
   <br />
 
-  <a data-sql="SELECT TOP 10 * FROM PUBS" href="#">Example 1</a>
-  <a data-sql="
-  CREATE PROCEDURE dbo._Stored_Procedure_Template       
-(
-  @@Parameter_1 INT,
-  @@Parameter_2 VARCHAR(50) = ''  
-)
-AS
-SET NOCOUNT ON;
-SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED;
-
--- Created: mm/dd/yy userid
--- Purpose: (specific description of functionality)
--- Used in: (original page name and/or procedure name)
-
--- mm/dd/yy userid: Change comment
-
--- Meaningful code goes here
-
-RETURN;
-GO" href="#">Example 2</a>
-
-  
+  @SharedHelpers.Example1()
+  @SharedHelpers.Example2()
+  @SharedHelpers.Example3()
+  @SharedHelpers.Example4() 
+    
   <p />
   
   @Html.TextAreaFor(s => s.Sql)
