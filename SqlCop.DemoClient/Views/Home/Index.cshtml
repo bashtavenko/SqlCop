@@ -99,8 +99,7 @@ GO" href="#">Example 2</a>
 { 
   <div style="color:red;">@Model.ErrorDescription</div>
 }
-
-@if (!string.IsNullOrEmpty(Model.SuccessMessage))
+else if (!string.IsNullOrEmpty(Model.SuccessMessage))
 { 
   <div style="color:green;">@Model.SuccessMessage</div>
 }
