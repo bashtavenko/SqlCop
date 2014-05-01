@@ -13,14 +13,10 @@ namespace SqlCop.DemoClient.Controllers
 {
     public class HomeController : Controller
     {
-      private readonly JsonServiceClient _client;
-      public HomeController()
-      {
-        _client = new JsonServiceClient("http://localhost:5000/api");
-      }    
+      private string ApiPath { get { return Request.Url.OriginalString + "/api"; } }
 
       public ActionResult Index()
-      { 
+      {     
         var model = BuildModel();
         return View(model);
       }
@@ -42,15 +38,21 @@ namespace SqlCop.DemoClient.Controllers
             if (item != null) item.Selected = true;
           }
         }
-                                 
+
+        JsonServiceClient client = null;
         List<SqlCop.ServiceModel.RuleProblem> response = null;
         try
         {
-           response = _client.Post(dto);
+          client = new JsonServiceClient(ApiPath);
+          response = client.Post(dto);
         }
         catch (WebServiceException ex)
         {
           homeModel.ErrorDescription = ex.ErrorMessage;
+        }
+        finally
+        {
+          if (client !=null) client.Dispose();
         }
 
         if (response != null && response.Any())
@@ -61,13 +63,16 @@ namespace SqlCop.DemoClient.Controllers
         {
           homeModel.SuccessMessage = "No rule violations found";
         }
-
         return View(homeModel);
       }
 
       private Home BuildModel()
-      {       
-        IList<RuleModel> rules = _client.Get(new GetRules { });
+      {
+        IList<RuleModel> rules;
+        using (JsonServiceClient client = new JsonServiceClient(ApiPath))
+        {
+          rules = client.Get(new GetRules { });
+        }
         var modelRules = Mapper.Map<IList<RuleModel>, IList<SqlCop.DemoClient.ViewModels.Rule>>(rules);
        
         var model = new Home { AllRules = modelRules };
